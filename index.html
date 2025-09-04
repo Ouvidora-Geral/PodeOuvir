@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎙️ PodeOuvir!</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #0d0d0d, #1a1a2e, #0f2027);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      margin-top: 30px;
+    }
+
+    header img {
+      width: 80px;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 10px #00ffe7);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #00ffe7;
+      text-shadow: 0 0 20px #00ffe7, 0 0 40px #00e1ff, 0 0 60px #0088ff;
+      transform: perspective(500px) rotateX(10deg);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 20px #00ffe7, 0 0 40px #00e1ff, 0 0 60px #0088ff;
+      }
+      50% {
+        text-shadow: 0 0 30px #ff00ff, 0 0 60px #ff0080, 0 0 90px #8000ff;
+      }
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+      padding: 0 15px;
+    }
+
+    nav button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 10px rgba(0,255,231,0.4);
+      flex: 1 1 auto;
+      min-width: 120px;
+    }
+
+    nav button:hover {
+      background: #00ffe7;
+      color: #000;
+      box-shadow: 0 0 20px #00ffe7, 0 0 40px #00e1ff;
+      transform: translateY(-3px);
+    }
+
+    /* ===== TABS ===== */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.6s ease-in-out;
+      width: 100%;
+      max-width: 500px;
+      padding: 0 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .player {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.6);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease-in-out;
+      margin-bottom: 20px;
+    }
+
+    .player:hover {
+      transform: scale(1.03);
+    }
+
+    .player h2 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: #00ffe7;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 400px;
+      outline: none;
+      filter: drop-shadow(0 0 8px #00ffe7);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: auto;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* ===== ANIMAÇÕES ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      nav {
+        gap: 10px;
+      }
+
+      nav button {
+        font-size: 0.9rem;
+        padding: 10px 18px;
+      }
+
+      .player h2 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://img.icons8.com/ios-filled/100/00ffe7/podcast.png" alt="Podcast Icon">
+    <h1>PodeOuvir!</h1>
+  </header>
+
+  <nav>
+    <button onclick="openTab('episodio1')">🎙️ Episódio 1</button>
+    <button onclick="openTab('episodio2')">🎙️ Episódio 2</button>
+    <button onclick="openTab('episodio3')">🎙️ Episódio 3</button>
+  </nav>
+
+  <section id="episodio1" class="tab-content active">
+    <div class="player">
+      <h2>📻 Novo Manual de Ouvidoria</h2>
+      <audio controls>
+        <source src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/main/PodCast_NovoManualOuvidoria.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+      </audio>
+    </div>
+  </section>
+
+  <section id="episodio2" class="tab-content">
+    <div class="player">
+      <h2>🎧 Episódio Futuro</h2>
+      <p>Em breve...</p>
+    </div>
+  </section>
+
+  <section id="episodio3" class="tab-content">
+    <div class="player">
+      <h2>🎧 Episódio Futuro</h2>
+      <p>Em breve...</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Ouvidoria Geral - PodOuvir
+  </footer>
+
+  <script>
+    function openTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
