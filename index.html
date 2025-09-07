@@ -14,8 +14,11 @@
             --verde: #00ffaa;
             --fundo: #0f172a;
             --texto: #ffffff;
+            --roxo: #6a0dad;
+            --laranja: #ffa500;
         }
 
+        /* Reset Básico */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -32,38 +35,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efeito de fundo com partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 255, 231, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+            animation: pulse-bg 10s infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse-bg {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.2); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.1; }
         }
 
         .app-container {
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
-        }
-
-        /* Logo e cabeçalho */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            max-width: 300px;
-            height: auto;
-            border-radius: 15px;
-            border: 3px solid var(--ciano);
-            box-shadow: 0 0 25px var(--ciano);
-            transition: transform 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
+            position: relative;
+            z-index: 10;
         }
 
         /* Estilos da aba PodeOuvir! */
         .pode-ouvir-container {
-            padding: 40px;
+            padding: 30px;
             text-align: center;
             position: relative;
             z-index: 5;
@@ -73,39 +78,45 @@
             border: 1px solid rgba(0, 255, 231, 0.2);
             box-shadow: 0 10px 40px rgba(0, 255, 231, 0.2);
         }
-
-        .pode-ouvir-container header h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--ciano);
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 20px var(--ciano), 0 0 40px var(--ciano-escuro), 0 0 60px rgba(0, 225, 255, 0.6);
-            transform: perspective(800px) rotateX(5deg) scale(1);
-            animation: pulse 3s infinite alternate;
-            letter-spacing: 2px;
-            position: relative;
-            margin-bottom: 30px;
+        
+        /* Logo no topo do container principal */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            perspective: 800px;
         }
-
-        .pode-ouvir-container header h1 .icon-volume {
-            display: inline-block;
-            animation: colorChange 4s infinite alternate;
+        
+        .logo {
+            max-width: 350px;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid var(--ciano);
+            box-shadow: 0 0 25px var(--ciano), 0 0 50px var(--ciano-escuro);
+            transition: all 0.5s ease;
+            transform: rotateY(0deg) translateZ(0px);
+        }
+        
+        .logo:hover {
+            transform: rotateY(10deg) translateZ(20px) scale(1.05);
+            box-shadow: 0 0 30px var(--ciano), 0 0 60px var(--ciano-escuro);
         }
 
         .pode-ouvir-container nav {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
-            margin: 30px 0 25px;
-            padding: 0 20px;
+            margin: 20px 0 30px;
+            padding: 0 10px;
             perspective: 1000px;
             z-index: 10;
+            flex-wrap: wrap;
         }
 
         .pode-ouvir-container nav button {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 255, 231, 0.1));
-            border: 1px solid rgba(0, 255, 231, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 255, 231, 0.05));
+            border: 1px solid rgba(0, 255, 231, 0.1);
             padding: 12px 20px;
             border-radius: 50px;
             font-size: 1rem;
@@ -113,20 +124,41 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 255, 231, 0.2);
-            flex: 1 1 160px;
+            box-shadow: 0 5px 15px rgba(0, 255, 231, 0.1);
             min-width: 140px;
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 0.5px;
             position: relative;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
+            overflow: hidden;
+            outline: none;
+        }
+        
+        /* Efeito de borda neon animada */
+        .pode-ouvir-container nav button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            box-shadow: 0 0 10px var(--ciano), 0 0 20px var(--azul);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .pode-ouvir-container nav button:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 255, 231, 0.4);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(0, 255, 231, 0.2));
+            box-shadow: 0 8px 20px rgba(0, 255, 231, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 255, 231, 0.15));
+        }
+        
+        .pode-ouvir-container nav button.active {
+            background: linear-gradient(135deg, rgba(0, 255, 231, 0.2), rgba(0, 255, 170, 0.2));
+            box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 231, 0.5);
         }
 
         .podcast-tab-content {
@@ -134,8 +166,8 @@
             animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             width: 100%;
             max-width: 600px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
+            margin: 0 auto 30px;
+            padding: 0 10px;
         }
 
         .podcast-tab-content.active {
@@ -144,7 +176,7 @@
 
         .player {
             background: rgba(22, 33, 62, 0.7);
-            padding: 30px;
+            padding: 25px;
             border-radius: 25px;
             box-shadow: 0 10px 30px rgba(0, 255, 231, 0.3), 0 0 15px rgba(0, 255, 231, 0.5);
             backdrop-filter: blur(15px);
@@ -152,6 +184,7 @@
             border: 1px solid rgba(0, 255, 231, 0.2);
             position: relative;
             overflow: hidden;
+            margin-bottom: 25px;
         }
 
         .player h2 {
@@ -166,27 +199,167 @@
             gap: 10px;
         }
 
-        .player audio {
-            width: 100%;
-            max-width: 450px;
+        /* Custom player styles */
+        .custom-player {
+            margin-top: 20px;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ciano), var(--azul));
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 255, 231, 0.5);
+            transition: all 0.3s ease;
             outline: none;
-            filter: drop-shadow(0 0 10px var(--ciano));
-            transform: scale(1);
-            transition: transform 0.3s ease;
-            background: rgba(0,0,0,0.3);
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 15px;
         }
 
-        .player audio:hover {
-            transform: scale(1.02);
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 231, 0.8);
         }
 
-        .player p {
+        .play-btn.playing i {
+            animation: pulse-icon 1.5s infinite;
+        }
+
+        @keyframes pulse-icon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            -webkit-appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--ciano);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--ciano);
+            transition: all 0.3s ease;
+        }
+
+        .volume-slider:hover::-webkit-slider-thumb {
+            box-shadow: 0 0 15px var(--ciano), 0 0 5px var(--verde);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--ciano), var(--verde));
+            border-radius: 10px;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        /* Efeito de rastreador na barra de progresso */
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: var(--texto);
+            border-radius: 50%;
+            transform: translate(50%, -3.5px);
+            box-shadow: 0 0 10px var(--ciano);
+            transition: all 0.1s linear;
+        }
+        
+        /* Aumenta o brilho do rastreador ao passar o mouse */
+        .progress-container:hover .progress-bar::after {
+            box-shadow: 0 0 15px var(--ciano), 0 0 5px var(--verde);
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
             color: #b0c4de;
-            font-size: 1rem;
-            margin-top: 15px;
+            margin-top: 5px;
+        }
+
+        .audio-visualizer {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2px;
+            margin: 20px 0;
+        }
+
+        .visualizer-bar {
+            width: 4px;
+            background: linear-gradient(to top, var(--ciano), var(--verde));
+            border-radius: 2px 2px 0 0;
+            transition: height 0.1s ease;
+            animation: wave 1.5s infinite alternate;
+        }
+
+        /* Animação para o visualizador */
+        @keyframes wave {
+            0% { transform: scaleY(0.5); }
+            100% { transform: scaleY(1); }
+        }
+
+        .logo-ouvidoria {
+            max-width: 250px;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 231, 0.5));
+            transition: all 0.3s ease;
+        }
+
+        .logo-ouvidoria:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(0, 255, 231, 0.8));
         }
 
         .pode-ouvir-container footer {
@@ -198,32 +371,31 @@
             z-index: 10;
             border-top: 1px solid rgba(0, 255, 231, 0.2);
         }
-
-        /* Animações */
-        @keyframes pulse {
-            0% { 
-                text-shadow: 0 0 20px var(--ciano), 0 0 40px var(--ciano-escuro), 0 0 60px rgba(0, 225, 255, 0.6);
-                transform: perspective(800px) rotateX(5deg) scale(1);
-            }
-            100% { 
-                text-shadow: 0 0 25px var(--ciano), 0 0 50px var(--ciano-escuro), 0 0 70px rgba(0, 225, 255, 0.8);
-                transform: perspective(800px) rotateX(5deg) scale(1.03);
-            }
+        
+        .social-icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--ciano);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--ciano);
+        }
+        
+        .social-icons a:hover {
+            color: var(--verde);
+            transform: scale(1.2);
+            text-shadow: 0 0 10px var(--verde), 0 0 15px var(--ciano-escuro);
         }
 
-        @keyframes colorChange {
-            0% {
-                color: var(--azul);
-                text-shadow: 0 0 20px var(--azul), 0 0 40px rgba(59, 130, 246, 0.7);
-            }
-            50% {
-                color: var(--ciano);
-                text-shadow: 0 0 20px var(--ciano), 0 0 40px rgba(0, 255, 231, 0.7);
-            }
-            100% {
-                color: var(--verde);
-                text-shadow: 0 0 20px var(--verde), 0 0 40px rgba(0, 255, 170, 0.7);
-            }
+        /* Animações gerais */
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 10px var(--ciano), 0 0 20px var(--azul); }
+            to { box-shadow: 0 0 15px var(--ciano), 0 0 30px var(--azul), 0 0 40px var(--roxo); }
         }
 
         @keyframes fadeInUp {
@@ -247,19 +419,18 @@
                 padding: 20px;
             }
             
-            .pode-ouvir-container header h1 {
-                font-size: 2.5rem;
+            .logo {
+                max-width: 280px;
             }
             
             .pode-ouvir-container nav {
-                flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
             
             .pode-ouvir-container nav button {
-                width: 100%;
                 padding: 10px 15px;
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+                min-width: 120px;
             }
             
             .player {
@@ -269,15 +440,19 @@
             .player h2 {
                 font-size: 1.3rem;
             }
+
+            .player-controls {
+                flex-wrap: wrap;
+            }
             
-            .logo {
-                max-width: 250px;
+            .logo-ouvidoria {
+                max-width: 200px;
             }
         }
 
         @media (max-width: 480px) {
-            .pode-ouvir-container header h1 {
-                font-size: 2rem;
+            .logo {
+                max-width: 220px;
             }
             
             .player {
@@ -288,32 +463,39 @@
                 font-size: 1.1rem;
             }
             
-            .pode-ouvir-container nav button {
-                min-width: unset;
+            .pode-ouvir-container nav {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .logo {
-                max-width: 200px;
+            .pode-ouvir-container nav button {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .play-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .logo-ouvidoria {
+                max-width: 180px;
             }
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- Logo/Capa do GitHub -->
-        <div class="logo">
-            <img src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/2e21cebd8846f59caeda2ae8f088857db83f6de9/podeouvir-capa4.png" 
-                 alt="PodeOuvir! - O Podcast da Ouvidoria-Geral" class="logo">
-        </div>
-        
-        <!-- Aba PodeOuvir! -->
-        <div class="pode-ouvir-logo">
+        <div class="pode-ouvir-container">
             <header>
-                <h1><span class="icon-volume"><i class="fas fa-volume-up"></i></span> PodeOuvir!</h1>
+                <div class="logo-container">
+                    <img src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/2e21cebd8846f59caeda2ae8f088857db83f6de9/podeouvir-capa4.png" 
+                         alt="PodeOuvir! - O Podcast da Ouvidoria-Geral" class="logo">
+                </div>
             </header>
 
             <nav>
-                <button onclick="openPodcastTab('episodio1')"><i class="fas fa-microphone-alt"></i> Episódio 1</button>
+                <button onclick="openPodcastTab('episodio1', 'https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/2e21cebd8846f59caeda2ae8f088857db83f6de9/PodCast_NovoManualOuvidoria.mp3')" class="active"><i class="fas fa-microphone-alt"></i> Episódio 1</button>
                 <button onclick="openPodcastTab('episodio2')"><i class="fas fa-microphone-alt"></i> Episódio 2</button>
                 <button onclick="openPodcastTab('episodio3')"><i class="fas fa-microphone-alt"></i> Episódio 3</button>
             </nav>
@@ -321,10 +503,37 @@
             <section id="episodio1" class="podcast-tab-content active">
                 <div class="player">
                     <h2><i class="fas fa-headphones-alt"></i> Novo Manual de Ouvidoria</h2>
-                    <audio controls>
-                        <source src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/2e21cebd8846f59caeda2ae8f088857db83f6de9/PodCast_NovoManualOuvidoria.mp3">
-                    </audio>
+                    
+                    <audio id="audioPlayer" style="display: none;"></audio>
+                    
+                    <div class="custom-player">
+                        <div class="audio-visualizer" id="visualizer">
+                            </div>
+                        
+                        <div class="player-controls">
+                            <button class="play-btn" id="playBtn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            
+                            <div class="volume-control">
+                                <i class="fas fa-volume-up"></i>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                            </div>
+                        </div>
+                        
+                        <div class="progress-container" id="progressContainer">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                        
+                        <div class="time-display">
+                            <span id="currentTime">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
                 </div>
+                
+                <img src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/173afaf8fc7e96f214748939729433638fb2891f/Logo_Ouvidoria_Cofen_set_25.png" 
+                      alt="Logo da Ouvidoria" class="logo-ouvidoria">
             </section>
 
             <section id="episodio2" class="podcast-tab-content">
@@ -332,6 +541,9 @@
                     <h2><i class="fas fa-rocket"></i> Episódio Futuro</h2>
                     <p>Em breve... Prepare-se para mais insights!</p>
                 </div>
+                
+                <img src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/173afaf8fc7e96f214748939729433638fb2891f/Logo_Ouvidoria_Cofen_set_25.png" 
+                      alt="Logo da Ouvidoria" class="logo-ouvidoria">
             </section>
 
             <section id="episodio3" class="podcast-tab-content">
@@ -339,34 +551,194 @@
                     <h2><i class="fas fa-rocket"></i> Episódio Futuro</h2>
                     <p>Em breve... Prepare-se para mais insights!</p>
                 </div>
+                
+                <img src="https://raw.githubusercontent.com/Ouvidora-Geral/PodeOuvir/173afaf8fc7e96f214748939729433638fb2891f/Logo_Ouvidoria_Cofen_set_25.png" 
+                      alt="Logo da Ouvidoria" class="logo-ouvidoria">
             </section>
 
             <footer>
                 <p>© 2025 Ouvidoria Geral - PodeOuvir!</p>
                 <p>Desenvolvido por Eduardo Fernando de Souza</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Link para o Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Link para o Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Link para o Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Link para o LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
             </footer>
         </div>
     </div>
 
     <script>
+        // Elements
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const visualizer = document.getElementById('visualizer');
+        const navButtons = document.querySelectorAll('.pode-ouvir-container nav button');
+        
+        let visualizerInterval;
+
+        // Criar barras do visualizador
+        const numberOfBars = 40;
+        for (let i = 0; i < numberOfBars; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'visualizer-bar';
+            bar.style.height = `${Math.random() * 30 + 5}px`;
+            bar.style.animationDelay = `${i * 0.05}s`;
+            visualizer.appendChild(bar);
+        }
+        
+        const visualizerBars = document.querySelectorAll('.visualizer-bar');
+        
+        // Função para formatar o tempo
+        function formatTime(seconds) {
+            let minutes = Math.floor(seconds / 60);
+            let secs = Math.floor(seconds % 60);
+            secs = secs < 10 ? `0${secs}` : secs;
+            return `${minutes}:${secs}`;
+        }
+        
+        // Carregar e reproduzir áudio
+        function loadAndPlay(audioSrc) {
+            audioPlayer.src = audioSrc;
+            audioPlayer.load();
+            audioPlayer.play().then(() => {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playBtn.classList.add('playing');
+                animateVisualizer();
+            }).catch(e => {
+                console.error("Erro ao tentar reproduzir o áudio:", e);
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playBtn.classList.remove('playing');
+                stopVisualizer();
+            });
+        }
+
+        // Animar o visualizador quando estiver tocando
+        function animateVisualizer() {
+            clearInterval(visualizerInterval);
+            visualizerInterval = setInterval(() => {
+                visualizerBars.forEach(bar => {
+                    const randomHeight = Math.random() * 50 + 5;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            }, 100);
+        }
+        
+        function stopVisualizer() {
+            clearInterval(visualizerInterval);
+            visualizerBars.forEach(bar => {
+                bar.style.height = `${Math.random() * 10 + 5}px`;
+            });
+        }
+
+        // Play/Pause
+        playBtn.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                playBtn.classList.add('playing');
+                animateVisualizer();
+            } else {
+                audioPlayer.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playBtn.classList.remove('playing');
+                stopVisualizer();
+            }
+        });
+        
+        // Volume
+        volumeSlider.addEventListener('input', () => {
+            audioPlayer.volume = volumeSlider.value;
+            const volumeIcon = volumeSlider.previousElementSibling;
+            if (audioPlayer.volume == 0) {
+                volumeIcon.className = 'fas fa-volume-mute';
+            } else if (audioPlayer.volume < 0.5) {
+                volumeIcon.className = 'fas fa-volume-down';
+            } else {
+                volumeIcon.className = 'fas fa-volume-up';
+            }
+        });
+        
+        // Update progress bar
+        audioPlayer.addEventListener('timeupdate', () => {
+            const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        });
+        
+        // Click on progress bar to seek
+        progressContainer.addEventListener('click', (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audioPlayer.duration;
+            audioPlayer.currentTime = (clickX / width) * duration;
+        });
+        
+        // Quando o áudio terminar
+        audioPlayer.addEventListener('ended', () => {
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            playBtn.classList.remove('playing');
+            progressBar.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+            stopVisualizer();
+        });
+        
+        // Carregar metadados do áudio para exibir a duração
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            if (!isNaN(audioPlayer.duration)) {
+                durationEl.textContent = formatTime(audioPlayer.duration);
+            }
+        });
+
         // Função para abrir as abas de podcast
-        function openPodcastTab(tabId) {
-            // Ocultar todos os conteúdos de podcast
+        function openPodcastTab(tabId, audioSrc = null) {
             document.querySelectorAll('.podcast-tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Mostrar o conteúdo selecionado
-            document.getElementById(tabId).classList.add('active');
+            const activeTab = document.getElementById(tabId);
+            activeTab.classList.add('active');
+            
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            const targetButton = document.querySelector(`button[onclick*="openPodcastTab('${tabId}'"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+            }
+
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                playBtn.classList.remove('playing');
+                stopVisualizer();
+            }
+
+            if (audioSrc) {
+                audioPlayer.src = audioSrc;
+                audioPlayer.load();
+                durationEl.textContent = '0:00';
+                progressBar.style.width = '0%';
+                currentTimeEl.textContent = '0:00';
+            }
         }
 
         // Inicialização
         function init() {
-            // Inicialmente mostrar apenas o primeiro episódio
-            openPodcastTab('episodio1');
+            const firstButton = document.querySelector('.pode-ouvir-container nav button.active');
+            if (firstButton) {
+                const initialAudioSrc = firstButton.getAttribute('onclick').split("','")[1].slice(0, -2);
+                openPodcastTab('episodio1', initialAudioSrc);
+            } else {
+                openPodcastTab('episodio1');
+            }
+            stopVisualizer();
         }
 
-        // Inicia o player quando o DOM estiver carregado
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
@@ -375,4 +747,3 @@
     </script>
 </body>
 </html>
-
